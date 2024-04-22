@@ -1,36 +1,32 @@
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "TA Hub", HidePremium = false, SaveConfig = false, ConfigFolder = "TA Hub"})
 
-local Window = Rayfield:CreateWindow({
-    Name = "Rayfield Example Window",
-    LoadingTitle = "Rayfield Interface Suite",
-    LoadingSubtitle = "by Sirius",
-    ConfigurationSaving = {
-       Enabled = true,
-       FolderName = nil, -- Create a custom folder for your hub/game
-       FileName = "Ta Hub"
-    },
-    Discord = {
-       Enabled = false,
-       Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
-       RememberJoins = true -- Set this to false to make them join the discord every time they load it up
-    },
-    KeySystem = false, -- Set this to true to use our key system
-    KeySettings = {
-       Title = "Untitled",
-       Subtitle = "Key System",
-       Note = "No method of obtaining the key is provided",
-       FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
-       SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
-       GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
-       Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
-    }
- })
+local OtoJJ = Window:MakeTab({
+	Name = "Oto JJ",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
 
-local OtoJJ = Window:CreateTab("Oto JJ", 4483362458)
-
-local Button = OtoJJ:CreateButton({
-    Name = "5",
-    Callback = function()
+OtoJJ:AddButton({
+	Name = "5",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
         local messages = {
             "BİR",
             "İKİ",
@@ -38,26 +34,43 @@ local Button = OtoJJ:CreateButton({
             "DÖRT",
             "BEŞ"
         }
-        local interval = 2  -- Time interval between messages in seconds
+        local interval = 1.2
         
-        local function SendNextMessage()
+        local function sendNextMessage()
             local message = messages[1]
             if message then
-                game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
                 table.remove(messages, 1)
             end
         end
         
+        coroutine.wrap(jumpLoop)()
+        
         while #messages > 0 do
-            SendNextMessage()
+            sendNextMessage()
             wait(interval)
         end
-    end,
- })
 
- local Button = OtoJJ:CreateButton({
-    Name = "10",
-    Callback = function()
+OtoJJ:AddButton({
+	Name = "10",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
         local messages = {
             "ALTI",
             "YEDİ",
@@ -65,34 +78,125 @@ local Button = OtoJJ:CreateButton({
             "DOKUZ",
             "ON"
         }
-        local interval = 2  -- Time interval between messages in seconds
+        local interval = 1.2
         
-        local function SendNextMessage()
+        local function sendNextMessage()
             local message = messages[1]
             if message then
-                game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
                 table.remove(messages, 1)
             end
         end
         
+        coroutine.wrap(jumpLoop)()
+        
         while #messages > 0 do
-            SendNextMessage()
+            sendNextMessage()
             wait(interval)
         end
-    end,
- })
+        end
 
- local Button = OtoJJ:CreateButton({
-    Name = "5",
-    Callback = function()
+        OtoJJ:AddButton({
+	Name = "10",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
         local messages = {
-            "ON BİR",
-            "ON İKİ",
-            "ON ÜÇ",
-            "ON DÖRT",
-            "ON BEŞ"
+            "ALTI",
+            "YEDİ",
+            "SEKİZ",
+            "DOKUZ",
+            "ON"
         }
-        local interval = 2  -- Time interval between messages in seconds
+        local interval = 1.2
+        
+        local function sendNextMessage()
+            local message = messages[1]
+            if message then
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        coroutine.wrap(jumpLoop)()
+        
+        while #messages > 0 do
+            sendNextMessage()
+            wait(interval)
+        end
+        end
+
+        OtoJJ:AddButton({
+            Name = "15",
+            Callback = function()
+                local Players = game:GetService("Players")
+                local ReplicatedStorage = game:GetService("ReplicatedStorage")
+                
+                local function jumpLoop()
+                    local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+                    local Humanoid = Character:WaitForChild("Humanoid")
+                
+                    local jumpCount = 0
+                    local maxJumps = 5
+                
+                    while jumpCount < maxJumps do
+                        Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                        jumpCount = jumpCount + 1
+                        wait(1.2)
+                    end
+                end
+                
+                local messages = {
+                    "ON BİR",
+                    "ON İKİ",
+                    "ON ÜÇ",
+                    "ON DÖRT",
+                    "ON BEŞ"
+                }
+                local interval = 1.2
+                
+                local function sendNextMessage()
+                    local message = messages[1]
+                    if message then
+                        ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                        table.remove(messages, 1)
+                    end
+                end
+                
+                coroutine.wrap(jumpLoop)()
+                
+                while #messages > 0 do
+                    sendNextMessage()
+                    wait(interval)
+                end
+                end
+
+OtoJJ:AddButton({
+	Name = "20",
+	Callback = function()
+        local messages = {
+            "ON ALTI",
+            "ON YEDİ",
+            "ON SEKİZ",
+            "ON DOKUZ",
+            "YİRMİ"
+        }
+        local interval = 2.20  -- Time interval between messages in seconds
         
         local function SendNextMessage()
             local message = messages[1]
@@ -106,5 +210,1741 @@ local Button = OtoJJ:CreateButton({
             SendNextMessage()
             wait(interval)
         end
-    end,
- })
+  	end    
+})
+
+OtoJJ:AddButton({
+	Name = "25",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
+        local messages = {
+            "YİRMİ BİR",
+            "YİRMİ İKİ",
+            "YİRMİ ÜÇ",
+            "YİRMİ DÖRT",
+            "YİRMİ BEŞ"
+        }
+        local interval = 1.2
+        
+        local function sendNextMessage()
+            local message = messages[1]
+            if message then
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        coroutine.wrap(jumpLoop)()
+        
+        while #messages > 0 do
+            sendNextMessage()
+            wait(interval)
+        end
+})
+
+OtoJJ:AddButton({
+	Name = "30",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
+        local messages = {
+            "YİRMİ ALTI",
+            "YİRMİ YEDİ",
+            "YİRMİ SEKİZ",
+            "YİRMİ DOKUZ",
+            "OTUZ"
+        }
+        local interval = 1.2
+        
+        local function sendNextMessage()
+            local message = messages[1]
+            if message then
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        coroutine.wrap(jumpLoop)()
+        
+        while #messages > 0 do
+            sendNextMessage()
+            wait(interval)
+        end
+
+OtoJJ:AddButton({
+	Name = "35",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
+        local messages = {
+            "OTUZ BİR",
+            "OTUZ İKİ",
+            "OTUZ ÜÇ",
+            "OTUZ DÖRT",
+            "OTUZ BEŞ"
+        }
+        local interval = 1.2
+        
+        local function sendNextMessage()
+            local message = messages[1]
+            if message then
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        coroutine.wrap(jumpLoop)()
+        
+        while #messages > 0 do
+            sendNextMessage()
+            wait(interval)
+        end
+})
+
+OtoJJ:AddButton({
+	Name = "40",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
+        local messages = {
+            "OTUZ ALTI",
+            "OTUZ YEDİ",
+            "OTUZ SEKİZ",
+            "OTUZ DOKUZ",
+            "KIRK"
+        }
+        local interval = 1.2
+        
+        local function sendNextMessage()
+            local message = messages[1]
+            if message then
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        coroutine.wrap(jumpLoop)()
+        
+        while #messages > 0 do
+            sendNextMessage()
+            wait(interval)
+        end
+})
+
+OtoJJ:AddButton({
+	Name = "45",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
+        local messages = {
+            "KIRK BİR",
+            "KIRK İKİ",
+            "KIRK ÜÇ",
+            "KIRK DÖRT",
+            "KIRK BEŞ"
+        }
+        local interval = 1.2
+        
+        local function sendNextMessage()
+            local message = messages[1]
+            if message then
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        coroutine.wrap(jumpLoop)()
+        
+        while #messages > 0 do
+            sendNextMessage()
+            wait(interval)
+        end
+})
+
+OtoJJ:AddButton({
+	Name = "50",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
+        local messages = {
+            "KIRK ALTI",
+            "KIRK YEDİ",
+            "KIRK SEKİZ",
+            "KIRK DOKUZ",
+            "ELLİ"
+        }
+        local interval = 1.2
+        
+        local function sendNextMessage()
+            local message = messages[1]
+            if message then
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        coroutine.wrap(jumpLoop)()
+        
+        while #messages > 0 do
+            sendNextMessage()
+            wait(interval)
+        end
+})
+
+OtoJJ:AddButton({
+	Name = "55",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
+        local messages = {
+            "ELLİ BİR",
+            "ELLİ İKİ",
+            "ELLİ ÜÇ",
+            "ELLİ DÖRT",
+            "ELLİ BEŞ"
+        }
+        local interval = 1.2
+        
+        local function sendNextMessage()
+            local message = messages[1]
+            if message then
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        coroutine.wrap(jumpLoop)()
+        
+        while #messages > 0 do
+            sendNextMessage()
+            wait(interval)
+        end
+})
+
+OtoJJ:AddButton({
+	Name = "60",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
+        local messages = {
+            "ELLİ ALTI",
+            "ELLİ YEDİ",
+            "ELLİ SEKİZ",
+            "ELLİ DOKUZ",
+            "ALTMIŞ"
+        }
+        local interval = 1.2
+        
+        local function sendNextMessage()
+            local message = messages[1]
+            if message then
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        coroutine.wrap(jumpLoop)()
+        
+        while #messages > 0 do
+            sendNextMessage()
+            wait(interval)
+        end
+})
+
+OtoJJ:AddButton({
+	Name = "65",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
+        local messages = {
+            "ALTMIŞ BİR",
+            "ALTMIŞ İKİ",
+            "ALTMIŞ ÜÇ",
+            "ALTMIŞ DÖRT",
+            "ALTMIŞ BEŞ"
+        }
+        local interval = 1.2
+        
+        local function sendNextMessage()
+            local message = messages[1]
+            if message then
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        coroutine.wrap(jumpLoop)()
+        
+        while #messages > 0 do
+            sendNextMessage()
+            wait(interval)
+        end
+})
+
+OtoJJ:AddButton({
+	Name = "70",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
+        local messages = {
+            "ALTMIŞ ALTI",
+            "ALTMIŞ YEDİ",
+            "ALTMIŞ SEKİZ",
+            "ALTMIŞ DOKUZ",
+            "YETMİŞ"
+        }
+        local interval = 1.2
+        
+        local function sendNextMessage()
+            local message = messages[1]
+            if message then
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        coroutine.wrap(jumpLoop)()
+        
+        while #messages > 0 do
+            sendNextMessage()
+            wait(interval)
+        end
+})
+
+OtoJJ:AddButton({
+	Name = "75",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
+        local messages = {
+            "YETMİŞ BİR",
+            "YETMİŞ İKİ",
+            "YETMİŞ ÜÇ",
+            "YETMİŞ DÖRT",
+            "YETMİŞ BEŞ"
+        }
+        local interval = 1.2
+        
+        local function sendNextMessage()
+            local message = messages[1]
+            if message then
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        coroutine.wrap(jumpLoop)()
+        
+        while #messages > 0 do
+            sendNextMessage()
+            wait(interval)
+        end
+})
+
+OtoJJ:AddButton({
+	Name = "80",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
+        local messages = {
+            "YETMİŞ ALTI",
+            "YETMİŞ YEDİ",
+            "YETMİŞ SEKİZ",
+            "YETMİŞ DOKUZ",
+            "SEKSEN"
+        }
+        local interval = 1.2
+        
+        local function sendNextMessage()
+            local message = messages[1]
+            if message then
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        coroutine.wrap(jumpLoop)()
+        
+        while #messages > 0 do
+            sendNextMessage()
+            wait(interval)
+        end
+
+OtoJJ:AddButton({
+	Name = "85",
+    local Players = game:GetService("Players")
+    local ReplicatedStorage = game:GetService("ReplicatedStorage")
+    
+    local function jumpLoop()
+        local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+        local Humanoid = Character:WaitForChild("Humanoid")
+    
+        local jumpCount = 0
+        local maxJumps = 5
+    
+        while jumpCount < maxJumps do
+            Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+            jumpCount = jumpCount + 1
+            wait(1.2)
+        end
+    end
+    
+    local messages = {
+        "SEKSEN BİR",
+        "SEKSEN İKİ",
+        "SEKSEN ÜÇ",
+        "SEKSEN DÖRT",
+        "SEKSEN BEŞ"
+    }
+    local interval = 1.2
+    
+    local function sendNextMessage()
+        local message = messages[1]
+        if message then
+            ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+            table.remove(messages, 1)
+        end
+    end
+    
+    coroutine.wrap(jumpLoop)()
+    
+    while #messages > 0 do
+        sendNextMessage()
+        wait(interval)
+    end
+})
+
+OtoJJ:AddButton({
+	Name = "90",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
+        local messages = {
+            "SEKSEN ALTI",
+            "SEKSEN YEDİ",
+            "SEKSEN SEKİZ",
+            "SEKSEN DOKUZ",
+            "DOKSAN"
+        }
+        local interval = 1.2
+        
+        local function sendNextMessage()
+            local message = messages[1]
+            if message then
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        coroutine.wrap(jumpLoop)()
+        
+        while #messages > 0 do
+            sendNextMessage()
+            wait(interval)
+        end
+})
+
+OtoJJ:AddButton({
+	Name = "95",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
+        local messages = {
+            "DOKSAN BİR",
+            "DOKSAN İKİ",
+            "DOKSAN ÜÇ",
+            "DOKSAN DÖRT",
+            "DOKSAN BEŞ"
+        }
+        local interval = 1.2
+        
+        local function sendNextMessage()
+            local message = messages[1]
+            if message then
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        coroutine.wrap(jumpLoop)()
+        
+        while #messages > 0 do
+            sendNextMessage()
+            wait(interval)
+        end
+})
+
+OtoJJ:AddButton({
+	Name = "100",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
+        local messages = {
+            "DOKSAN ALTI",
+            "DOKSAN YEDİ",
+            "DOKSAN SEKİZ",
+            "DOKSAN DOKUZ",
+            "YÜZ"
+        }
+        local interval = 1.2
+        
+        local function sendNextMessage()
+            local message = messages[1]
+            if message then
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        coroutine.wrap(jumpLoop)()
+        
+        while #messages > 0 do
+            sendNextMessage()
+            wait(interval)
+        end
+})
+
+OtoJJ:AddButton({
+	Name = "105",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
+        local messages = {
+            "YÜZ BİR",
+            "YÜZ İKİ",
+            "YÜZ ÜÇ",
+            "YÜZ DÖRT",
+            "YÜZ BEŞ"
+        }
+        local interval = 1.2
+        
+        local function sendNextMessage()
+            local message = messages[1]
+            if message then
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        coroutine.wrap(jumpLoop)()
+        
+        while #messages > 0 do
+            sendNextMessage()
+            wait(interval)
+        end
+
+OtoJJ:AddButton({
+	Name = "110",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
+        local messages = {
+            "YÜZ ALTI",
+            "YÜZ YEDİ",
+            "YÜZ SEKİZ",
+            "YÜZ DOKUZ",
+            "YÜZ ON"
+        }
+        local interval = 1.2
+        
+        local function sendNextMessage()
+            local message = messages[1]
+            if message then
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        coroutine.wrap(jumpLoop)()
+        
+        while #messages > 0 do
+            sendNextMessage()
+            wait(interval)
+        end
+        end
+
+        OtoJJ:AddButton({
+            Name = "115",
+            Callback = function()
+                local Players = game:GetService("Players")
+                local ReplicatedStorage = game:GetService("ReplicatedStorage")
+                
+                local function jumpLoop()
+                    local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+                    local Humanoid = Character:WaitForChild("Humanoid")
+                
+                    local jumpCount = 0
+                    local maxJumps = 5
+                
+                    while jumpCount < maxJumps do
+                        Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                        jumpCount = jumpCount + 1
+                        wait(1.2)
+                    end
+                end
+                
+                local messages = {
+                    "YÜZ ON BİR",
+                    "YÜZ ON İKİ",
+                    "YÜZ ON ÜÇ",
+                    "YÜZ ON DÖRT",
+                    "YÜZ ON BEŞ"
+                }
+                local interval = 1.2
+                
+                local function sendNextMessage()
+                    local message = messages[1]
+                    if message then
+                        ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                        table.remove(messages, 1)
+                    end
+                end
+                
+                coroutine.wrap(jumpLoop)()
+                
+                while #messages > 0 do
+                    sendNextMessage()
+                    wait(interval)
+                end
+                end
+
+OtoJJ:AddButton({
+	Name = "120",
+	Callback = function()
+        local messages = {
+            "YÜZ ON ALTI",
+            "YÜZ ON YEDİ",
+            "YÜZ ON SEKİZ",
+            "YÜZ ON DOKUZ",
+            "YÜZ YİRMİ"
+        }
+        local interval = 2.20  -- Time interval between messages in seconds
+        
+        local function SendNextMessage()
+            local message = messages[1]
+            if message then
+                game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        while #messages > 0 do
+            SendNextMessage()
+            wait(interval)
+        end
+  	end    
+})
+
+OtoJJ:AddButton({
+	Name = "125",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
+        local messages = {
+            "YÜZ YİRMİ BİR",
+            "YÜZ YİRMİ İKİ",
+            "YÜZ YİRMİ ÜÇ",
+            "YÜZ YİRMİ DÖRT",
+            "YÜZ YİRMİ BEŞ"
+        }
+        local interval = 1.2
+        
+        local function sendNextMessage()
+            local message = messages[1]
+            if message then
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        coroutine.wrap(jumpLoop)()
+        
+        while #messages > 0 do
+            sendNextMessage()
+            wait(interval)
+        end
+})
+
+OtoJJ:AddButton({
+	Name = "130",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
+        local messages = {
+            "YÜZ YİRMİ ALTI",
+            "YÜZ YİRMİ YEDİ",
+            "YÜZ YİRMİ SEKİZ",
+            "YÜZ YİRMİ DOKUZ",
+            "YÜZ OTUZ"
+        }
+        local interval = 1.2
+        
+        local function sendNextMessage()
+            local message = messages[1]
+            if message then
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        coroutine.wrap(jumpLoop)()
+        
+        while #messages > 0 do
+            sendNextMessage()
+            wait(interval)
+        end
+
+OtoJJ:AddButton({
+	Name = "135",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
+        local messages = {
+            "YÜZ OTUZ BİR",
+            "YÜZ OTUZ İKİ",
+            "YÜZ OTUZ ÜÇ",
+            "YÜZ OTUZ DÖRT",
+            "YÜZ OTUZ BEŞ"
+        }
+        local interval = 1.2
+        
+        local function sendNextMessage()
+            local message = messages[1]
+            if message then
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        coroutine.wrap(jumpLoop)()
+        
+        while #messages > 0 do
+            sendNextMessage()
+            wait(interval)
+        end
+})
+
+OtoJJ:AddButton({
+	Name = "140",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
+        local messages = {
+            "YÜZ OTUZ ALTI",
+            "YÜZ OTUZ YEDİ",
+            "YÜZ OTUZ SEKİZ",
+            "YÜZ OTUZ DOKUZ",
+            "YÜZ KIRK"
+        }
+        local interval = 1.2
+        
+        local function sendNextMessage()
+            local message = messages[1]
+            if message then
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        coroutine.wrap(jumpLoop)()
+        
+        while #messages > 0 do
+            sendNextMessage()
+            wait(interval)
+        end
+})
+
+OtoJJ:AddButton({
+	Name = "145",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
+        local messages = {
+            "YÜZ KIRK BİR",
+            "YÜZ KIRK İKİ",
+            "YÜZ KIRK ÜÇ",
+            "YÜZ KIRK DÖRT",
+            "YÜZ KIRK BEŞ"
+        }
+        local interval = 1.2
+        
+        local function sendNextMessage()
+            local message = messages[1]
+            if message then
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        coroutine.wrap(jumpLoop)()
+        
+        while #messages > 0 do
+            sendNextMessage()
+            wait(interval)
+        end
+})
+
+OtoJJ:AddButton({
+	Name = "150",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
+        local messages = {
+            "YÜZ KIRK ALTI",
+            "YÜZ KIRK YEDİ",
+            "YÜZ KIRK SEKİZ",
+            "YÜZ KIRK DOKUZ",
+            "YÜZ ELLİ"
+        }
+        local interval = 1.2
+        
+        local function sendNextMessage()
+            local message = messages[1]
+            if message then
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        coroutine.wrap(jumpLoop)()
+        
+        while #messages > 0 do
+            sendNextMessage()
+            wait(interval)
+        end
+})
+
+OtoJJ:AddButton({
+	Name = "155",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
+        local messages = {
+            "YÜZ ELLİ BİR",
+            "YÜZ ELLİ İKİ",
+            "YÜZ ELLİ ÜÇ",
+            "YÜZ ELLİ DÖRT",
+            "YÜZ ELLİ BEŞ"
+        }
+        local interval = 1.2
+        
+        local function sendNextMessage()
+            local message = messages[1]
+            if message then
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        coroutine.wrap(jumpLoop)()
+        
+        while #messages > 0 do
+            sendNextMessage()
+            wait(interval)
+        end
+})
+
+OtoJJ:AddButton({
+	Name = "160",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
+        local messages = {
+            "YÜZ ELLİ ALTI",
+            "YÜZ ELLİ YEDİ",
+            "YÜZ ELLİ SEKİZ",
+            "YÜZ ELLİ DOKUZ",
+            "YÜZ ALTMIŞ"
+        }
+        local interval = 1.2
+        
+        local function sendNextMessage()
+            local message = messages[1]
+            if message then
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        coroutine.wrap(jumpLoop)()
+        
+        while #messages > 0 do
+            sendNextMessage()
+            wait(interval)
+        end
+})
+
+OtoJJ:AddButton({
+	Name = "165",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
+        local messages = {
+            "YÜZ ALTMIŞ BİR",
+            "YÜZ ALTMIŞ İKİ",
+            "YÜZ ALTMIŞ ÜÇ",
+            "YÜZ ALTMIŞ DÖRT",
+            "YÜZ ALTMIŞ BEŞ"
+        }
+        local interval = 1.2
+        
+        local function sendNextMessage()
+            local message = messages[1]
+            if message then
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        coroutine.wrap(jumpLoop)()
+        
+        while #messages > 0 do
+            sendNextMessage()
+            wait(interval)
+        end
+})
+
+OtoJJ:AddButton({
+	Name = "170",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
+        local messages = {
+            "YÜZ ALTMIŞ ALTI",
+            "YÜZ ALTMIŞ YEDİ",
+            "YÜZ ALTMIŞ SEKİZ",
+            "YÜZ ALTMIŞ DOKUZ",
+            "YÜZ YETMİŞ"
+        }
+        local interval = 1.2
+        
+        local function sendNextMessage()
+            local message = messages[1]
+            if message then
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        coroutine.wrap(jumpLoop)()
+        
+        while #messages > 0 do
+            sendNextMessage()
+            wait(interval)
+        end
+})
+
+OtoJJ:AddButton({
+	Name = "175",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
+        local messages = {
+            "YÜZ YETMİŞ BİR",
+            "YÜZ YETMİŞ İKİ",
+            "YÜZ YETMİŞ ÜÇ",
+            "YÜZ YETMİŞ DÖRT",
+            "YÜZ YETMİŞ BEŞ"
+        }
+        local interval = 1.2
+        
+        local function sendNextMessage()
+            local message = messages[1]
+            if message then
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        coroutine.wrap(jumpLoop)()
+        
+        while #messages > 0 do
+            sendNextMessage()
+            wait(interval)
+        end
+})
+
+OtoJJ:AddButton({
+	Name = "180",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
+        local messages = {
+            "YÜZ YETMİŞ ALTI",
+            "YÜZ YETMİŞ YEDİ",
+            "YÜZ YETMİŞ SEKİZ",
+            "YÜZ YETMİŞ DOKUZ",
+            "YÜZ SEKSEN"
+        }
+        local interval = 1.2
+        
+        local function sendNextMessage()
+            local message = messages[1]
+            if message then
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        coroutine.wrap(jumpLoop)()
+        
+        while #messages > 0 do
+            sendNextMessage()
+            wait(interval)
+        end
+
+OtoJJ:AddButton({
+	Name = "185",
+    local Players = game:GetService("Players")
+    local ReplicatedStorage = game:GetService("ReplicatedStorage")
+    
+    local function jumpLoop()
+        local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+        local Humanoid = Character:WaitForChild("Humanoid")
+    
+        local jumpCount = 0
+        local maxJumps = 5
+    
+        while jumpCount < maxJumps do
+            Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+            jumpCount = jumpCount + 1
+            wait(1.2)
+        end
+    end
+    
+    local messages = {
+        "YÜZ SEKSEN BİR",
+        "YÜZ SEKSEN İKİ",
+        "YÜZ SEKSEN ÜÇ",
+        "YÜZ SEKSEN DÖRT",
+        "YÜZ SEKSEN BEŞ"
+    }
+    local interval = 1.2
+    
+    local function sendNextMessage()
+        local message = messages[1]
+        if message then
+            ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+            table.remove(messages, 1)
+        end
+    end
+    
+    coroutine.wrap(jumpLoop)()
+    
+    while #messages > 0 do
+        sendNextMessage()
+        wait(interval)
+    end
+})
+
+OtoJJ:AddButton({
+	Name = "190",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
+        local messages = {
+            "YÜZ SEKSEN ALTI",
+            "YÜZ SEKSEN YEDİ",
+            "YÜZ SEKSEN SEKİZ",
+            "YÜZ SEKSEN DOKUZ",
+            "YÜZ DOKSAN"
+        }
+        local interval = 1.2
+        
+        local function sendNextMessage()
+            local message = messages[1]
+            if message then
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        coroutine.wrap(jumpLoop)()
+        
+        while #messages > 0 do
+            sendNextMessage()
+            wait(interval)
+        end
+})
+
+OtoJJ:AddButton({
+	Name = "195",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
+        local messages = {
+            "YÜZ DOKSAN BİR",
+            "YÜZ DOKSAN İKİ",
+            "YÜZ DOKSAN ÜÇ",
+            "YÜZ DOKSAN DÖRT",
+            "YÜZ DOKSAN BEŞ"
+        }
+        local interval = 1.2
+        
+        local function sendNextMessage()
+            local message = messages[1]
+            if message then
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        coroutine.wrap(jumpLoop)()
+        
+        while #messages > 0 do
+            sendNextMessage()
+            wait(interval)
+        end
+})
+
+OtoJJ:AddButton({
+	Name = "200",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        
+        local function jumpLoop()
+            local Character = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+            local Humanoid = Character:WaitForChild("Humanoid")
+        
+            local jumpCount = 0
+            local maxJumps = 5
+        
+            while jumpCount < maxJumps do
+                Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                jumpCount = jumpCount + 1
+                wait(1.2)
+            end
+        end
+        
+        local messages = {
+            "YÜZ DOKSAN ALTI",
+            "YÜZ DOKSAN YEDİ",
+            "YÜZ DOKSAN SEKİZ",
+            "YÜZ DOKSAN DOKUZ",
+            "İKİ YÜZ"
+        }
+        local interval = 1.2
+        
+        local function sendNextMessage()
+            local message = messages[1]
+            if message then
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        coroutine.wrap(jumpLoop)()
+        
+        while #messages > 0 do
+            sendNextMessage()
+            wait(interval)
+        end
+})
+
+local OtoGJ = Window:MakeTab({
+	Name = "Oto GJ",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+OtoGJ:AddButton({
+	Name = "5",
+	Callback = function()
+        local messages = {
+            "Bir.",
+            "İki.",
+            "Üç.",
+            "Dört.",
+            "Beş."
+        }
+        local interval = 2.20  -- Time interval between messages in seconds
+        
+        local function SendNextMessage()
+            local message = messages[1]
+            if message then
+                game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        while #messages > 0 do
+            SendNextMessage()
+            wait(interval)
+        end
+  	end    
+})
+
+OtoGJ:AddButton({
+	Name = "10",
+	Callback = function()
+        local messages = {
+            "Altı.",
+            "Yedi.",
+            "Sekiz.",
+            "Dokuz.",
+            "On."
+        }
+        local interval = 2.20  -- Time interval between messages in seconds
+        
+        local function SendNextMessage()
+            local message = messages[1]
+            if message then
+                game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        while #messages > 0 do
+            SendNextMessage()
+            wait(interval)
+        end
+  	end    
+})
+
+OtoGJ:AddButton({
+	Name = "15",
+	Callback = function()
+        local messages = {
+            "On bir.",
+            "On iki.",
+            "On üç.",
+            "On dört.",
+            "On beş."
+        }
+        local interval = 2.20  -- Time interval between messages in seconds
+        
+        local function SendNextMessage()
+            local message = messages[1]
+            if message then
+                game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        while #messages > 0 do
+            SendNextMessage()
+            wait(interval)
+        end
+  	end    
+})
+
+OtoGJ:AddButton({
+	Name = "20",
+	Callback = function()
+        local messages = {
+            "On altı.",
+            "On yedi.",
+            "On sekiz.",
+            "On dokuz.",
+            "Yirmi."
+        }
+        local interval = 2.20  -- Time interval between messages in seconds
+        
+        local function SendNextMessage()
+            local message = messages[1]
+            if message then
+                game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        while #messages > 0 do
+            SendNextMessage()
+            wait(interval)
+        end
+  	end    
+})
+
+OtoGJ:AddButton({
+	Name = "25",
+	Callback = function()
+        local messages = {
+            "Yirmi bir.",
+            "Yirmi iki.",
+            "Yirmi üç.",
+            "Yirmi dört.",
+            "Yirmi beş."
+        }
+        local interval = 2.20  -- Time interval between messages in seconds
+        
+        local function SendNextMessage()
+            local message = messages[1]
+            if message then
+                game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+                table.remove(messages, 1)
+            end
+        end
+        
+        while #messages > 0 do
+            SendNextMessage()
+            wait(interval)
+        end
+  	end    
+})
