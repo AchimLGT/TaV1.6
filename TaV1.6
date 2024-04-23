@@ -1,3 +1,23 @@
+-- ScreenGui oluştur
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = game.Players.LocalPlayer.PlayerGui
+
+-- Başlat butonu
+local startButton = Instance.new("TextButton")
+startButton.Text = "Başlat"
+startButton.Position = UDim2.new(0.5, -50, 0.1, 0)
+startButton.Size = UDim2.new(0, 100, 0, 30)
+startButton.Parent = screenGui
+
+-- Durdur butonu
+local stopButton = Instance.new("TextButton")
+stopButton.Text = "Durdur"
+stopButton.Position = UDim2.new(0.5, -50, 0.2, 0)
+stopButton.Size = UDim2.new(0, 100, 0, 30)
+stopButton.Parent = screenGui
+
+local isSending = false
+local currentMessageIndex = 1
 local messages = {
     "BİR",
     "İKİ",
@@ -199,39 +219,19 @@ local messages = {
 "YÜZ DOKSAN SEKİZ",
 "YÜZ DOKSAN DOKUZ",
 "İKİ YÜZ"
-    -- Diğer mesajlar burada devam eder...
 }
 
-local currentMessageIndex = 1
-local messageCount = #messages
-local isSending = false
-
 local function sendMessage()
-    while currentMessageIndex <= messageCount do
+    while currentMessageIndex <= #messages do
         if isSending then
-            local message = messages[currentMessageIndex]
-            game.Players.LocalPlayer:Chat(message)
-            wait(1)  -- Her mesaj arası 1 saniye bekle
+            game.Players.LocalPlayer:Chat(messages[currentMessageIndex])
+            wait(1)
             currentMessageIndex = currentMessageIndex + 1
         else
             wait(0.1)
         end
     end
 end
-
--- Başlat butonu
-local startButton = Instance.new("TextButton")
-startButton.Text = "Başlat"
-startButton.Position = UDim2.new(0.5, -50, 0.1, 0)
-startButton.Size = UDim2.new(0, 100, 0, 30)
-startButton.Parent = game.Players.LocalPlayer.PlayerGui
-
--- Durdur butonu
-local stopButton = Instance.new("TextButton")
-stopButton.Text = "Durdur"
-stopButton.Position = UDim2.new(0.5, -50, 0.2, 0)
-stopButton.Size = UDim2.new(0, 100, 0, 30)
-stopButton.Parent = game.Players.LocalPlayer.PlayerGui
 
 startButton.MouseButton1Click:Connect(function()
     if not isSending then
