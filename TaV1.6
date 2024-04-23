@@ -1,25 +1,34 @@
--- ScreenGui oluştur
 local screenGui = Instance.new("ScreenGui")
 screenGui.Parent = game.Players.LocalPlayer.PlayerGui
 
--- Başlat butonu
 local startButton = Instance.new("TextButton")
 startButton.Text = "Başlat"
-startButton.Position = UDim2.new(0.5, -50, 0.1, 0)
+startButton.Position = UDim2.new(1, -150, 0, 10)
 startButton.Size = UDim2.new(0, 100, 0, 30)
 startButton.Parent = screenGui
 
--- Durdur butonu
 local stopButton = Instance.new("TextButton")
 stopButton.Text = "Durdur"
-stopButton.Position = UDim2.new(0.5, -50, 0.2, 0)
+stopButton.Position = UDim2.new(1, -150, 0, 50)
 stopButton.Size = UDim2.new(0, 100, 0, 30)
 stopButton.Parent = screenGui
 
-local isSending = false
-local currentMessageIndex = 1
+local resumeButton = Instance.new("TextButton")
+resumeButton.Text = "Devam"
+resumeButton.Position = UDim2.new(1, -150, 0, 90)
+resumeButton.Size = UDim2.new(0, 100, 0, 30)
+resumeButton.Parent = screenGui
+
+local textBox = Instance.new("TextBox")
+textBox.PlaceholderText = "Mesaj numarasını girin"
+textBox.Position = UDim2.new(1, -150, 0, 130)
+textBox.Size = UDim2.new(0, 100, 0, 30)
+textBox.Parent = screenGui
+
+local isPaused = false
+local currentCoroutine = nil
 local messages = {
-    "BİR",
+  BİR",
     "İKİ",
     "ÜÇ",
     "DÖRT",
@@ -218,13 +227,317 @@ local messages = {
 "YÜZ DOKSAN YEDİ",
 "YÜZ DOKSAN SEKİZ",
 "YÜZ DOKSAN DOKUZ",
-"İKİ YÜZ"
+"İKİ YÜZ",
+"İKİ YÜZ BİR",
+"İKİ YÜZ İKİ",
+"İKİ YÜZ ÜÇ",
+"İKİ YÜZ DÖRT",
+"İKİ YÜZ BEŞ",
+"İKİ YÜZ ALTI",
+"İKİ YÜZ YEDİ",
+"İKİ YÜZ SEKİZ",
+"İKİ YÜZ DOKUZ",
+"İKİ YÜZ ON",
+"İKİ YÜZ ON BİR",
+"İKİ YÜZ ON İKİ",
+"İKİ YÜZ ON ÜÇ",
+"İKİ YÜZ ON DÖRT",
+"İKİ YÜZ ON BEŞ",
+"İKİ YÜZ ON ALTI",
+"İKİ YÜZ ON YEDİ",
+"İKİ YÜZ ON SEKİZ",
+"İKİ YÜZ ON DOKUZ",
+"İKİ YÜZ YİRMİ",
+"İKİ YÜZ YİRMİ BİR",
+"İKİ YÜZ YİRMİ İKİ",
+"İKİ YÜZ YİRMİ ÜÇ",
+"İKİ YÜZ YİRMİ DÖRT",
+"İKİ YÜZ YİRMİ BEŞ",
+"İKİ YÜZ YİRMİ ALTI",
+"İKİ YÜZ YİRMİ YEDİ",
+"İKİ YÜZ YİRMİ SEKİZ",
+"İKİ YÜZ YİRMİ DOKUZ",
+"İKİ YÜZ OTUZ",
+"İKİ YÜZ OTUZ BİR",
+"İKİ YÜZ OTUZ İKİ",
+"İKİ YÜZ OTUZ ÜÇ",
+"İKİ YÜZ OTUZ DÖRT",
+"İKİ YÜZ OTUZ BEŞ",
+"İKİ YÜZ OTUZ ALTI",
+"İKİ YÜZ OTUZ YEDİ",
+"İKİ YÜZ OTUZ SEKİZ",
+"İKİ YÜZ OTUZ DOKUZ",
+"İKİ YÜZ KIRK",
+"İKİ YÜZ KIRK BİR",
+"İKİ YÜZ KIRK İKİ",
+"İKİ YÜZ KIRK ÜÇ",
+"İKİ YÜZ KIRK DÖRT",
+"İKİ YÜZ KIRK BEŞ",
+"İKİ YÜZ KIRK ALTI",
+"İKİ YÜZ KIRK YEDİ",
+"İKİ YÜZ KIRK SEKİZ",
+"İKİ YÜZ KIRK DOKUZ",
+"İKİ YÜZ ELLİ",
+"İKİ YÜZ ELLİ BİR",
+"İKİ YÜZ ELLİ İKİ",
+"İKİ YÜZ ELLİ ÜÇ",
+"İKİ YÜZ ELLİ DÖRT",
+"İKİ YÜZ ELLİ BEŞ",
+"İKİ YÜZ ELLİ ALTI",
+"İKİ YÜZ ELLİ YEDİ",
+"İKİ YÜZ ELLİ SEKİZ",
+"İKİ YÜZ ELLİ DOKUZ",
+"İKİ YÜZ ALTMİŞ",
+"İKİ YÜZ ALTMİŞ BİR",
+"İKİ YÜZ ALTMİŞ İKİ",
+"İKİ YÜZ ALTMİŞ ÜÇ",
+"İKİ YÜZ ALTMİŞ DÖRT",
+"İKİ YÜZ ALTMİŞ BEŞ",
+"İKİ YÜZ ALTMİŞ ALTI",
+"İKİ YÜZ ALTMİŞ YEDİ",
+"İKİ YÜZ ALTMİŞ SEKİZ",
+"İKİ YÜZ ALTMİŞ DOKUZ",
+"İKİ YÜZ YETMİŞ",
+"İKİ YÜZ YETMİŞ BİR",
+"İKİ YÜZ YETMİŞ İKİ",
+"İKİ YÜZ YETMİŞ ÜÇ",
+"İKİ YÜZ YETMİŞ DÖRT",
+"İKİ YÜZ YETMİŞ BEŞ",
+"İKİ YÜZ YETMİŞ ALTI",
+"İKİ YÜZ YETMİŞ YEDİ",
+"İKİ YÜZ YETMİŞ SEKİZ",
+"İKİ YÜZ YETMİŞ DOKUZ",
+"İKİ YÜZ SEKSEN",
+"İKİ YÜZ SEKSEN BİR",
+"İKİ YÜZ SEKSEN İKİ",
+"İKİ YÜZ SEKSEN ÜÇ",
+"İKİ YÜZ SEKSEN DÖRT",
+"İKİ YÜZ SEKSEN BEŞ",
+"İKİ YÜZ SEKSEN ALTI",
+"İKİ YÜZ SEKSEN YEDİ",
+"İKİ YÜZ SEKSEN SEKİZ",
+"İKİ YÜZ SEKSEN DOKUZ",
+"İKİ YÜZ DOKSAN",
+"İKİ YÜZ DOKSAN BİR",
+"İKİ YÜZ DOKSAN İKİ",
+"İKİ YÜZ DOKSAN ÜÇ",
+"İKİ YÜZ DOKSAN DÖRT",
+"İKİ YÜZ DOKSAN BEŞ",
+"İKİ YÜZ DOKSAN ALTI",
+"İKİ YÜZ DOKSAN YEDİ",
+"İKİ YÜZ DOKSAN SEKİZ",
+"İKİ YÜZ DOKSAN DOKUZ",
+"ÜÇ YÜZ",
+"ÜÇ YÜZ BİR",
+"ÜÇ YÜZ İKİ",
+"ÜÇ YÜZ ÜÇ",
+"ÜÇ YÜZ DÖRT",
+"ÜÇ YÜZ BEŞ",
+"ÜÇ YÜZ ALTI",
+"ÜÇ YÜZ YEDİ",
+"ÜÇ YÜZ SEKİZ",
+"ÜÇ YÜZ DOKUZ",
+"ÜÇ YÜZ ON",
+"ÜÇ YÜZ ON BİR",
+"ÜÇ YÜZ ON İKİ",
+"ÜÇ YÜZ ON ÜÇ",
+"ÜÇ YÜZ ON DÖRT",
+"ÜÇ YÜZ ON BEŞ",
+"ÜÇ YÜZ ON ALTI",
+"ÜÇ YÜZ ON YEDİ",
+"ÜÇ YÜZ ON SEKİZ",
+"ÜÇ YÜZ ON DOKUZ",
+"ÜÇ YÜZ YİRMİ",
+"ÜÇ YÜZ YİRMİ BİR",
+"ÜÇ YÜZ YİRMİ İKİ",
+"ÜÇ YÜZ YİRMİ ÜÇ",
+"ÜÇ YÜZ YİRMİ DÖRT",
+"ÜÇ YÜZ YİRMİ BEŞ",
+"ÜÇ YÜZ YİRMİ ALTI",
+"ÜÇ YÜZ YİRMİ YEDİ",
+"ÜÇ YÜZ YİRMİ SEKİZ",
+"ÜÇ YÜZ YİRMİ DOKUZ",
+"ÜÇ YÜZ OTUZ",
+"ÜÇ YÜZ OTUZ BİR",
+"ÜÇ YÜZ OTUZ İKİ",
+"ÜÇ YÜZ OTUZ ÜÇ",
+"ÜÇ YÜZ OTUZ DÖRT",
+"ÜÇ YÜZ OTUZ BEŞ",
+"ÜÇ YÜZ OTUZ ALTI",
+"ÜÇ YÜZ OTUZ YEDİ",
+"ÜÇ YÜZ OTUZ SEKİZ",
+"ÜÇ YÜZ OTUZ DOKUZ",
+"ÜÇ YÜZ KIRK",
+"ÜÇ YÜZ KIRK BİR",
+"ÜÇ YÜZ KIRK İKİ",
+"ÜÇ YÜZ KIRK ÜÇ",
+"ÜÇ YÜZ KIRK DÖRT",
+"ÜÇ YÜZ KIRK BEŞ",
+"ÜÇ YÜZ KIRK ALTI",
+"ÜÇ YÜZ KIRK YEDİ",
+"ÜÇ YÜZ KIRK SEKİZ",
+"ÜÇ YÜZ KIRK DOKUZ",
+"ÜÇ YÜZ ELLİ",
+"ÜÇ YÜZ ELLİ BİR",
+"ÜÇ YÜZ ELLİ İKİ",
+"ÜÇ YÜZ ELLİ ÜÇ",
+"ÜÇ YÜZ ELLİ DÖRT",
+"ÜÇ YÜZ ELLİ BEŞ",
+"ÜÇ YÜZ ELLİ ALTI",
+"ÜÇ YÜZ ELLİ YEDİ",
+"ÜÇ YÜZ ELLİ SEKİZ",
+"ÜÇ YÜZ ELLİ DOKUZ",
+"ÜÇ YÜZ ALTMİŞ",
+"ÜÇ YÜZ ALTMİŞ BİR",
+"ÜÇ YÜZ ALTMİŞ İKİ",
+"ÜÇ YÜZ ALTMİŞ ÜÇ",
+"ÜÇ YÜZ ALTMİŞ DÖRT",
+"ÜÇ YÜZ ALTMİŞ BEŞ",
+"ÜÇ YÜZ ALTMİŞ ALTI",
+"ÜÇ YÜZ ALTMİŞ YEDİ",
+"ÜÇ YÜZ ALTMİŞ SEKİZ",
+"ÜÇ YÜZ ALTMİŞ DOKUZ",
+"ÜÇ YÜZ YETMİŞ",
+"ÜÇ YÜZ YETMİŞ BİR",
+"ÜÇ YÜZ YETMİŞ İKİ",
+"ÜÇ YÜZ YETMİŞ ÜÇ",
+"ÜÇ YÜZ YETMİŞ DÖRT",
+"ÜÇ YÜZ YETMİŞ BEŞ",
+"ÜÇ YÜZ YETMİŞ ALTI",
+"ÜÇ YÜZ YETMİŞ YEDİ",
+"ÜÇ YÜZ YETMİŞ SEKİZ",
+"ÜÇ YÜZ YETMİŞ DOKUZ",
+"ÜÇ YÜZ SEKSEN",
+"ÜÇ YÜZ SEKSEN BİR",
+"ÜÇ YÜZ SEKSEN İKİ",
+"ÜÇ YÜZ SEKSEN ÜÇ",
+"ÜÇ YÜZ SEKSEN DÖRT",
+"ÜÇ YÜZ SEKSEN BEŞ",
+"ÜÇ YÜZ SEKSEN ALTI",
+"ÜÇ YÜZ SEKSEN YEDİ",
+"ÜÇ YÜZ SEKSEN SEKİZ",
+"ÜÇ YÜZ SEKSEN DOKUZ",
+"ÜÇ YÜZ DOKSAN",
+"ÜÇ YÜZ DOKSAN BİR",
+"ÜÇ YÜZ DOKSAN İKİ",
+"ÜÇ YÜZ DOKSAN ÜÇ",
+"ÜÇ YÜZ DOKSAN DÖRT",
+"ÜÇ YÜZ DOKSAN BEŞ",
+"ÜÇ YÜZ DOKSAN ALTI",
+"ÜÇ YÜZ DOKSAN YEDİ",
+"ÜÇ YÜZ DOKSAN SEKİZ",
+"ÜÇ YÜZ DOKSAN DOKUZ",
+"DÖRT YÜZ",
+"DÖRT YÜZ BİR",
+"DÖRT YÜZ İKİ",
+"DÖRT YÜZ ÜÇ",
+"DÖRT YÜZ DÖRT",
+"DÖRT YÜZ BEŞ",
+"DÖRT YÜZ ALTI",
+"DÖRT YÜZ YEDİ",
+"DÖRT YÜZ SEKİZ",
+"DÖRT YÜZ DOKUZ",
+"DÖRT YÜZ ON",
+"DÖRT YÜZ ON BİR",
+"DÖRT YÜZ ON İKİ",
+"DÖRT YÜZ ON ÜÇ",
+"DÖRT YÜZ ON DÖRT",
+"DÖRT YÜZ ON BEŞ",
+"DÖRT YÜZ ON ALTI",
+"DÖRT YÜZ ON YEDİ",
+"DÖRT YÜZ ON SEKİZ",
+"DÖRT YÜZ ON DOKUZ",
+"DÖRT YÜZ YİRMİ",
+"DÖRT YÜZ YİRMİ BİR",
+"DÖRT YÜZ YİRMİ İKİ",
+"DÖRT YÜZ YİRMİ ÜÇ",
+"DÖRT YÜZ YİRMİ DÖRT",
+"DÖRT YÜZ YİRMİ BEŞ",
+"DÖRT YÜZ YİRMİ ALTI",
+"DÖRT YÜZ YİRMİ YEDİ",
+"DÖRT YÜZ YİRMİ SEKİZ",
+"DÖRT YÜZ YİRMİ DOKUZ",
+"DÖRT YÜZ OTUZ",
+"DÖRT YÜZ OTUZ BİR",
+"DÖRT YÜZ OTUZ İKİ",
+"DÖRT YÜZ OTUZ ÜÇ",
+"DÖRT YÜZ OTUZ DÖRT",
+"DÖRT YÜZ OTUZ BEŞ",
+"DÖRT YÜZ OTUZ ALTI",
+"DÖRT YÜZ OTUZ YEDİ",
+"DÖRT YÜZ OTUZ SEKİZ",
+"DÖRT YÜZ OTUZ DOKUZ",
+"DÖRT YÜZ KIRK",
+"DÖRT YÜZ KIRK BİR",
+"DÖRT YÜZ KIRK İKİ",
+"DÖRT YÜZ KIRK ÜÇ",
+"DÖRT YÜZ KIRK DÖRT",
+"DÖRT YÜZ KIRK BEŞ",
+"DÖRT YÜZ KIRK ALTI",
+"DÖRT YÜZ KIRK YEDİ",
+"DÖRT YÜZ KIRK SEKİZ",
+"DÖRT YÜZ KIRK DOKUZ",
+"DÖRT YÜZ ELLİ",
+"DÖRT YÜZ ELLİ BİR",
+"DÖRT YÜZ ELLİ İKİ",
+"DÖRT YÜZ ELLİ ÜÇ",
+"DÖRT YÜZ ELLİ DÖRT",
+"DÖRT YÜZ ELLİ BEŞ",
+"DÖRT YÜZ ELLİ ALTI",
+"DÖRT YÜZ ELLİ YEDİ",
+"DÖRT YÜZ ELLİ SEKİZ",
+"DÖRT YÜZ ELLİ DOKUZ",
+"DÖRT YÜZ ALTMİŞ",
+"DÖRT YÜZ ALTMİŞ BİR",
+"DÖRT YÜZ ALTMİŞ İKİ",
+"DÖRT YÜZ ALTMİŞ ÜÇ",
+"DÖRT YÜZ ALTMİŞ DÖRT",
+"DÖRT YÜZ ALTMİŞ BEŞ",
+"DÖRT YÜZ ALTMİŞ ALTI",
+"DÖRT YÜZ ALTMİŞ YEDİ",
+"DÖRT YÜZ ALTMİŞ SEKİZ",
+"DÖRT YÜZ ALTMİŞ DOKUZ",
+"DÖRT YÜZ YETMİŞ",
+"DÖRT YÜZ YETMİŞ BİR",
+"DÖRT YÜZ YETMİŞ İKİ",
+"DÖRT YÜZ YETMİŞ ÜÇ",
+"DÖRT YÜZ YETMİŞ DÖRT",
+"DÖRT YÜZ YETMİŞ BEŞ",
+"DÖRT YÜZ YETMİŞ ALTI",
+"DÖRT YÜZ YETMİŞ YEDİ",
+"DÖRT YÜZ YETMİŞ SEKİZ",
+"DÖRT YÜZ YETMİŞ DOKUZ",
+"DÖRT YÜZ SEKSEN",
+"DÖRT YÜZ SEKSEN BİR",
+"DÖRT YÜZ SEKSEN İKİ",
+"DÖRT YÜZ SEKSEN ÜÇ",
+"DÖRT YÜZ SEKSEN DÖRT",
+"DÖRT YÜZ SEKSEN BEŞ",
+"DÖRT YÜZ SEKSEN ALTI",
+"DÖRT YÜZ SEKSEN YEDİ",
+"DÖRT YÜZ SEKSEN SEKİZ",
+"DÖRT YÜZ SEKSEN DOKUZ",
+"DÖRT YÜZ DOKSAN",
+"DÖRT YÜZ DOKSAN BİR",
+"DÖRT YÜZ DOKSAN İKİ",
+"DÖRT YÜZ DOKSAN ÜÇ",
+"DÖRT YÜZ DOKSAN DÖRT",
+"DÖRT YÜZ DOKSAN BEŞ",
+"DÖRT YÜZ DOKSAN ALTI",
+"DÖRT YÜZ DOKSAN YEDİ",
+"DÖRT YÜZ DOKSAN SEKİZ",
+"DÖRT YÜZ DOKSAN DOKUZ",
+"BEŞ YÜZ"
 }
 
-local function sendMessage()
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local SayMessageRequest = ReplicatedStorage:WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest")
+
+local function sendMessage(startIndex)
+    local currentMessageIndex = startIndex
     while currentMessageIndex <= #messages do
-        if isSending then
-            game.Players.LocalPlayer:Chat(messages[currentMessageIndex])
+        if not isPaused then
+            SayMessageRequest:FireServer(messages[currentMessageIndex], "All")
             wait(1)
             currentMessageIndex = currentMessageIndex + 1
         else
@@ -234,12 +547,19 @@ local function sendMessage()
 end
 
 startButton.MouseButton1Click:Connect(function()
-    if not isSending then
-        isSending = true
-        sendMessage()
+    local messageIndex = tonumber(textBox.Text)
+    if messageIndex and messageIndex >= 1 and messageIndex <= #messages then
+        currentCoroutine = coroutine.create(sendMessage)
+        coroutine.resume(currentCoroutine, messageIndex)
+    else
+        print("Geçersiz mesaj numarası")
     end
 end)
 
 stopButton.MouseButton1Click:Connect(function()
-    isSending = false
+    isPaused = true
+end)
+
+resumeButton.MouseButton1Click:Connect(function()
+    isPaused = false
 end)
